@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+    <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+rel="stylesheet"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+</head>
+<body>
+
+<style>
+body {
+    
+    background-position: center center;
+	background-repeat:  no-repeat;
+	background-attachment: fixed;
+	background-size:  cover;
+    background-color: rgba(161, 161, 161, 0.108);
+  }
+
+
+#chat4 .form-control {
+    border-color: transparent;
+    
+}
+
+#chat4 .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+#scroll::-webkit-scrollbar{
+    background-color: rgba(0, 0, 0, 0.108); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(5px);
+    width: 0px;
+    height: 0px;
+    color: #eee;
+}
+
+pre::-webkit-scrollbar{
+    background-color: rgba(0, 0, 0, 0.108); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(5px);
+    width: 0px;
+    height: 0px;
+}
+
+div {
+    position: relative; /* Set position to relative for the container */
+}
+
+pre {
+     overflow-x: scroll; /* Enable horizontal scrolling */
+    width: 68vw;
+  /* white-space: pre-wrap; Preserve line breaks */
+}
+
+pre button {
+    position: absolute;
+    top: 1px;
+    left: calc(68vw - 2rem); /* Adjust the position of the button */
+    font-size: 0.9rem;
+    padding: 0.5rem; /* Changed to a positive value */
+    background-color: rgb(50, 50, 50);
+    border-radius: 50px;
+    border: none;
+}
+
+.form{
+    width: 100%;
+}
+#questionInput{
+    background-color: rgba(253, 253, 253, 0.532); 
+    -webkit-backdrop-filter: blur(8px); 
+    backdrop-filter: blur(5px);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 45px;
+    height: 40px;
+}
+
+.tooltip-inner {
+    background-color: rgb(100, 100, 100);
+    border-radius: 2px;
+    position: relative;
+    padding: 2px 10px;
+    font-size: small;
+}
+
+.tooltip-inner::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent rgb(100, 100, 100) transparent;
+}
+#scroll {
+    margin: 4px, 4px;
+    padding: 4px;
+    width: 100%;
+    height: 57.0vh;
+    overflow-x: auto;
+    background-image: url("https://i.postimg.cc/CLbZGrCp/output-onlinepngtools-2.png");
+    background-size: cover; /* Change from 'cover' to 'contain' */
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-align: justify;
+    border-radius: 3px;
+    {% comment %} opacity: 0.25; {% endcomment %}
+    
+}
+
+
+    /* Track */
+    #scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 7px rgb(219, 219, 219);
+    border-radius: 10px;
+    }
+
+    /* Handle */
+    #scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 7px rgb(255, 255, 255); 
+    border-radius: 10px;
+    }
+
+    /* Handle */
+    #scroll::-webkit-scrollbar-thumb {
+    background: rgb(215, 215, 215); 
+    border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    #scroll::-webkit-scrollbar-thumb:hover {
+    background: rgb(159, 159, 159); 
+    }
+    pre {
+            /* background-color: #dcdcdc; */
+            padding: 1em;
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+        .loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.loader {
+  width: 120px;
+  height: 20px;
+  -webkit-mask: linear-gradient(90deg,#000 70%,#0000 0) left/20% 100%;
+  background:
+   linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat
+   rgb(226, 229, 205);
+  animation: l7 1s infinite steps(6);
+}
+@keyframes l7 {
+    100% {background-position: right -25% top 0}
+}00% {background-position: 0 0}
+}
+
+</style>
+  
+<div class="container">
+    <div class="row">
+    <div style="border-radius: 5px; background-color: rgba(161, 161, 161, 0.108); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(5px);" class="modal-content con mt-4 mb-4">
+        <div style="background-color: rgba(161, 161, 161, 0.108); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(5px); border-radius: 5px 5px 0px 0px;" class="modal-header text-white shadow-5">
+          <div class="my-3">
+            <a class="text-dark" href="javascript:history.back()"><i type="button" data-mdb-dismiss="modal" style="font-size: 18px;" class="fas fa-arrow-left"></i></a>
+            <img class="ms-2" src="https://www.creativefabrica.com/wp-content/uploads/2021/07/05/Chatbot-Logo-Modern-bot-logo-Graphics-14298242-2-580x435.jpg" alt="Header Image" style="border-radius: 50%; max-height: 35px; max-width: 50px;">
+            <span class="ms-1 text-dark">ChatBot</span>
+          </div>
+          <a data-mdb-placement="bottom" data-mdb-toggle="tooltip" title="Reload" class="text-dark" href="{% url 'chat' %}"><i type="button" data-mdb-dismiss="modal" style="font-size: 18px;" class="fas fa-arrows-rotate"></i></a>
+      </div>
+        <div style="background-color: rgba(161, 161, 161, 0.108); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(5px);" class="modal-body">
+          <div style="background-color: transparent;" id="chat4">
+            <div id="scroll" class="card-body my-3"  data-mdb-perfect-scrollbar="true" style="position: relative; height: 66vh">
+
+              {% if chats %}
+            {% for chat in chats %}
+            <div id="chatCard">
+                <div  class="d-flex flex-row justify-content-end mb-3">
+                    <div>
+                        <div style="background-color: #1b1b1b8e; font-size: smaller; border-radius: 20px 0px 20px 20px;" class="small p-2 me-2 mb-1 text-white ms-auto">{{ chat.text_input }}</div>
+                    </div>
+                    <img class="rounded-circle mb-1" src="https://www.creativefabrica.com/wp-content/uploads/2021/07/05/Chatbot-Logo-Modern-bot-logo-Graphics-14298242-2-580x435.jpg"
+                         alt="avatar 1" style="width: 40px; height: 100%;">
+                </div>
+                <div id="response_data" class="d-flex flex-row justify-content-start mb-3">
+                    <img src="https://www.creativefabrica.com/wp-content/uploads/2021/07/05/Chatbot-Logo-Modern-bot-logo-Graphics-14298242-2-580x435.jpg"
+                         alt="avatar 1" style="width:  40px; height: 100%;">
+                    <div>
+                        <div id="chatArea" class="small p-2 ms-2 mb-1 me-auto text-dark" style="background-color: #ffffffb8; font-size: smaller; border-radius: 0px 20px 20px 20px;">{{ chat.gemini_output | safe }}</div>
+                    </div>
+                </div>
+              </div>
+            {% endfor %}
+              {% endif %}
+            </div>
+            <div class="loader-container">
+              <div style="color: #242424b1;" class="d-flex align-items-center me-3" id="loading">
+              </div>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+              <img class="rounded-circle" src="https://www.creativefabrica.com/wp-content/uploads/2021/07/05/Chatbot-Logo-Modern-bot-logo-Graphics-14298242-2-580x435.jpg"
+                alt="avatar 3" style="width: 40px; height: 100%;">
+                <form class="form" onsubmit="askQuestion(event)">
+                    <input class="form-control ms-2" type="text" id="userText" name="text" placeholder="Ask your question">
+                </form>                
+              <span id="submitBtn" style="background-color: rgba(253, 253, 253, 0.532); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(5px)" type="submit" class="ms-3 link-danger btn btn-floating" href=""><i class="fas fa-paper-plane"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"
+></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+     
+<script>
+    let chatCard = document.querySelector('#scroll');
+    chatCard.scrollTop = chatCard.scrollHeight;
+
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelector('#submitBtn').addEventListener('click', () => chat_ajax());
+    });
+
+    function myFunction() {
+        document.getElementById("userText").disabled = true;
+        document.querySelector('#userText').setAttribute('placeholder', 'Please wait, your result will come soon...');
+    }
+    function enableUserText() {
+    // Enable the input field
+    document.getElementById("userText").disabled = false;
+    document.querySelector('#userText').setAttribute('placeholder', 'Ask your question');
+}
+
+
+    function chat_ajax() {
+        const md = new markdownit({ html: true });
+        let text = document.querySelector('#userText').value;
+        let html = md.renderInline(text);
+        let chatCard = document.querySelector('#scroll');
+        
+        // Append user's message to chat card
+        chatCard.innerHTML += `
+            <div class="d-flex flex-row justify-content-end mb-3">
+                <div>
+                    <div style="background-color: #1b1b1b8e; font-size: smaller; border-radius: 20px 0px 20px 20px;" class="small p-2 me-2 mb-1 text-white ms-auto">${text}</div>
+                </div>
+                <img class="rounded-circle mb-1" src="https://espere.in/static/images/profile.webp" alt="avatar 1" style="width: 40px; height: 100%;">
+            </div>
+        `;
+        chatCard.scrollTop = chatCard.scrollHeight;
+        console.log(text);
+
+        document.querySelector('#userText').value = null;
+
+        var loading = document.querySelector('#loading');
+        myFunction();
+        loading.innerHTML = `
+            <div class="loader">
+            </div>
+        `;
+        chatCard.scrollTop = chatCard.scrollHeight;
+        $.ajax({
+            type: 'POST',
+            url: '/ask_question/',
+            data: {
+                'text': text,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function(res) {
+              var response = md.render(res.data.text); // Render Markdown content
+              var chatCard = document.getElementById('scroll');
+              var typingSpeed = 15; // Set the typing speed in milliseconds
+              // Create response_data div
+              var responseDataDiv = document.createElement('div');
+              responseDataDiv.id = 'response_data';
+              responseDataDiv.classList.add('d-flex', 'flex-row', 'justify-content-start', 'mb-3');
+              chatCard.appendChild(responseDataDiv);
+              
+              // Create avatar image
+              var avatarImg = document.createElement('img');
+              avatarImg.src = "https://www.creativefabrica.com/wp-content/uploads/2021/07/05/Chatbot-Logo-Modern-bot-logo-Graphics-14298242-2-580x435.jpg";
+              avatarImg.alt = "avatar 1";
+              avatarImg.style.width = '40px';
+              avatarImg.style.height = '100%';
+              responseDataDiv.appendChild(avatarImg);
+              
+              // Create chatArea div
+              var chatAreaDiv = document.createElement('div');
+              chatAreaDiv.id = 'chatArea';
+              chatAreaDiv.classList.add('small', 'p-2', 'ms-2', 'mb-1', 'me-auto', 'text-dark');
+              chatAreaDiv.style.backgroundColor = '#ffffffb8';
+              chatAreaDiv.style.fontSize = 'smaller';
+              chatAreaDiv.style.borderRadius = '0px 20px 20px 20px';
+              chatAreaDiv.innerHTML = response;
+              responseDataDiv.appendChild(chatAreaDiv);
+              // chatAreaDiv.innerHTML += response
+              loading.innerHTML = '';
+              chatCard.scrollTop = chatCard.scrollHeight;
+              enableUserText();
+
+          },
+
+
+            error: function() {
+                console.log("There was an error!");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

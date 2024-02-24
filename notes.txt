@@ -1,0 +1,14 @@
+start project : django-admin startproject chatbot
+go to that dir: cd chatbot
+create new app startapp : python manage.py startapp chat_app 
+
+you need to create the database tables to store the data. You can do this by running the following command:
+- python manage.py makemigrations
+- python manage.py migrate
+
+You should also create a superuser because we will only allow logged-in users to do this.
+- python manage.py createsuperuser
+then it ask for:
+Username (leave blank to use 'asus'): gemini-guy
+Email address: gemini@gmail.com
+Password: gemini
