@@ -26,7 +26,6 @@ def ask_question(request):
             print(f"StopCandidateException raised: {e}")
             return JsonResponse({"error": "An error occurred while processing your request."}, status=500)
     else:
-        return JsonResponse({"error": "Unsupported method. Only POST requests are allowed."}, status=405)
         return HttpResponseRedirect(
             reverse("chat")
         )

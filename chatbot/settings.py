@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'chat_app',
 ]
 
+LOGIN_URL = "/admin/login/"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
